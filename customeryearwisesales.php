@@ -225,8 +225,10 @@ $no;
                 foreach($year as $yearget){
                     
                     //sixth query    
-                $queryamount = "SELECT sum(amount) as amount FROM `gdsales` WHERE `cusid` = $customer and year(date) = $yearget";
-                $queryamountresult = mysqli_query($con_zaheer,$queryamount);
+              
+                    $queryamount = "SELECT sum(b.amount) as amount FROM `gdsales`as a inner join gd_sales_order as b on a.invoice_number = b.invoice WHERE a.cusid = $customer and year(b.saledate) = $yearget";
+               
+                    $queryamountresult = mysqli_query($con_zaheer,$queryamount);
                 $rowamount=Mysqli_Fetch_Assoc($queryamountresult);
                 
                 ?>
