@@ -82,24 +82,14 @@ include('slice/pur_order_code.php');
     </a><a href="" align="center"><?php echo $Brand_duration?></a>
 
 
-    <hr>
-</div>
+ 
+</div> 
+ <hr>
 
 <div class="content" id="content">
-    
-   
-
-
-    
-    
-    
-    <div align="center">
-
-        <font style="font-style:italic;"><b><u><? echo "Zaheer Autos"?> Customer Yearwise Payment Collection <? echo $rev?></u> </b>
-
-        </font>
-
-    </div>
+<div align="center">
+      <font style="font-style:italic;"><b><u><? echo "Zaheer Autos"?> Customer Yearwise Sales Collection <? echo $rev?></u> </b>
+        </font> </div>
     <div style="margin: 0 auto; padding: 0px; width: 1000px; font-weight: normal;">
         <div style="width: 100%; height: 80px;">
             <div>
@@ -126,6 +116,7 @@ include('slice/pur_order_code.php');
 
                     </table>
                 </div>
+
             </div>
 
 
@@ -133,7 +124,8 @@ include('slice/pur_order_code.php');
 
         </div>
 
-<div id="myform">
+
+        <div id="myform">
         <table id="bor" border="1" cellpadding="4" cellspacing="0"
                style=" font-family: times & roman; font-style:italic; font-size: 12px;text-align:left; " width="100%">
             <thead>
@@ -383,7 +375,7 @@ include('slice/pur_order_code.php');
     </div>
 
 
-</div>
-</div>
+    </div>
 
+        </div>
 </body>
