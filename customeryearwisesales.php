@@ -73,13 +73,14 @@ include('slice/pur_order_code.php');
 </script>
 
 <body onload="stopback()">
-<a href="shipment_purchase.php" style="font-Meter:20px" ;>Back</a>|<a
+<a href="shipment_purchase.php" style="font-Meter:20px" ;>Back</a>|
 
 <div align ='center'>
 
     <a href="#" onclick="javascript:Clickheretoprint('content')">
         <button type="button" class="btn btn-warning">Print</button>
-    </a><a href="" align="center"><?php echo $Brand_duration?></a>
+    </a>
+    <a href="" align="center"><?php echo $Brand_duration?></a>
 
 
  
@@ -208,12 +209,7 @@ $no;
                 while($rowcus=Mysqli_Fetch_Assoc($querycustomerresult)) {
                     $customer = $rowcus['pay_acid'];
 
-
-
                 ?>
-
-
-                
 
                 <tr class="record">
 
@@ -223,48 +219,36 @@ $no;
 
                 <?php
                 //fifth yearloop
+                $totalsales_amount = 0;
+                $currentamount = 0;
+                $cur_year = date('Y');
                 foreach($year as $yearget){
+                    
                     //sixth query    
                 $queryamount = "SELECT sum(amount) as amount FROM `gdsales` WHERE `cusid` = $customer and year(date) = $yearget";
                 $queryamountresult = mysqli_query($con_zaheer,$queryamount);
                 $rowamount=Mysqli_Fetch_Assoc($queryamountresult);
-                    
-                    
                 
                 ?>
                 <th><?php echo number_format($rowamount['amount']) ?></th>
                 
                 <?php
+                
+                $totalsales_amount += $rowamount['amount'];
+                if($yearget==$cur_year){
+
+                    $currentamount = $rowamount['amount'];
                 }
+                
+            }
                 
 
-                
-                //seventh query
-                $querytotal = "SELECT sum(amount) as amount FROM `gdsales`  WHERE   `cusid` = $customer";
-                $querytotalresult = mysqli_query($con_zaheer,$querytotal);
-            
-                while($rowtotal=Mysqli_Fetch_Assoc($querytotalresult)) {
-                
-                
-                
-                
-                
                 ?>
-                <th><?php echo number_format($rowtotal['amount']) ?></th>
+                <th><?php echo number_format($totalsales_amount) ?></th>
                 <th><?php 
                 
-                //eight query  finished
-                $querycurrent = "SELECT sum(amount) as amount, year(date) as date FROM `gdsales` WHERE `cusid` = $customer and year(date) = YEAR(CURDATE())";
-                $querycurrentresult = mysqli_query($con_zaheer,$querycurrent);
-                while($rowcurrent=Mysqli_Fetch_Assoc($querycurrentresult)) {
                 
-                $currentamount = $rowcurrent['amount'];
-                
-                }
-                
-                
-                
-                $totalamount = $rowtotal['amount']-$currentamount;
+                $totalamount = $totalsales_amount-$currentamount;
                 
                 
                 echo number_format($total = $totalamount/$no) ?></th>
@@ -275,26 +259,17 @@ $no;
                 <?php
                 
                 $alltotal = round(($cur - $pre)/$pre*100 ,2);
-                if($alltotal<0){
-                
-            
-                    ?>
+                if($alltotal<0){   ?>
                     
                       <th style="background:red;color:white"><?php echo $alltotal;  ?></th>
                     
-                    <?php
-                    
-                }else{?>
-                
-                      <th ><?php echo $alltotal ; ?></th>
-                    
-                    
-            <?php    }
+                    <?php   }
+                    else { ?>   <th ><?php echo $alltotal ; ?></th>  <?php    }
                 
                 
                 
                 
-                }
+                
                 
                 
                 
@@ -310,7 +285,9 @@ $no;
                 <?php
 
 
-            }
+           
+
+}
             ?>
 
 
@@ -324,7 +301,7 @@ $no;
                 $querytableresult11 = mysqli_query($con_zaheer,$querytable11);
                 while($rowtable1=Mysqli_Fetch_Assoc($querytableresult11)) {
                     
-                    $year1 = $rowtable1[date];
+                    $year1 = $rowtable1['date'];
                     
                 $queryamount1 = "SELECT sum(pay_amount) as amount FROM `tbl_payment` WHERE `pay_type` LIKE 'customer' and year(pay_time) = $year1 and pay_acid != 1";
                 $queryamountresult1 = mysqli_query($con_zaheer,$queryamount1);
