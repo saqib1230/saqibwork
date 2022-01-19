@@ -88,10 +88,14 @@ include('slice/pur_order_code.php');
 
 <div class="content" id="content">
 <div align="center">
-      <font style="font-style:italic;"><b><u><? echo "Zaheer Autos"?> Customer Yearwise Sales Collection <? echo $rev?></u> </b>
+      
+    
+    <!--heading start-->
+<font style="font-style:italic;"><b><u><? echo "Zaheer Autos"?> Customer Yearwise Sales Collection <? echo $rev?></u> </b>
         </font> </div>
     <div style="margin: 0 auto; padding: 0px; width: 1000px; font-weight: normal;">
-        <div style="width: 100%; height: 80px;">
+
+    <div style="width: 100%; height: 80px;">
             <div>
 
                 <div>
@@ -124,8 +128,13 @@ include('slice/pur_order_code.php');
 
         </div>
 
+  <!--heading end-->
 
         <div id="myform">
+
+
+
+
         <table id="bor" border="1" cellpadding="4" cellspacing="0"
                style=" font-family: times & roman; font-style:italic; font-size: 12px;text-align:left; " width="100%">
             <thead>
@@ -134,7 +143,9 @@ include('slice/pur_order_code.php');
                 <th>customer</th>
                 <?php
                 $no;
-                $queryyearno = "SELECT year(pay_time) as date FROM `tbl_payment` WHERE `pay_type` LIKE 'customer' and YEAR(pay_time) != YEAR(CURDATE()) group by date";
+
+                //first query 
+                $queryyearno = "SELECT year(date) as date FROM `gdsales` WHERE YEAR(date) != YEAR(CURDATE()) group by year(date)";
                 $queryyearnoresult = mysqli_query($con_zaheer,$queryyearno);
                 while($rowno=Mysqli_Fetch_Assoc($queryyearnoresult)) {
                 ++$no;    
@@ -142,7 +153,7 @@ include('slice/pur_order_code.php');
                 
                 
                 $nno;
-                $querymonthno = "SELECT MONTHname(pay_time) as date FROM `tbl_payment` where  YEAR(pay_time) = YEAR(CURDATE()) group by date";
+                $querymonthno = "SELECT MONTHname(date) as date FROM `gdsales` where  YEAR(date) = YEAR(CURDATE()) group by monthname(date)";
                 $querymonthresult = mysqli_query($con_zaheer,$querymonthno);
                 while($rowno=Mysqli_Fetch_Assoc($querymonthresult)) {
                 ++$nno;    
@@ -371,10 +382,14 @@ include('slice/pur_order_code.php');
 
             </tbody>
         </table>
-        </div>
+       
+    
+    
+    
+    </div>
     </div>
 
-
+  
     </div>
 
         </div>
