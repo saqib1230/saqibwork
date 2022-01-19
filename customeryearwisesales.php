@@ -153,14 +153,15 @@ include('slice/pur_order_code.php');
                 
                 
                 $nno;
+                //second query
                 $querymonthno = "SELECT MONTHname(date) as date FROM `gdsales` where  YEAR(date) = YEAR(CURDATE()) group by monthname(date)";
                 $querymonthresult = mysqli_query($con_zaheer,$querymonthno);
                 while($rowno=Mysqli_Fetch_Assoc($querymonthresult)) {
                 ++$nno;    
                 }
                 
-                
-                $querytable = "SELECT year(pay_time) as date FROM `tbl_payment` WHERE `pay_type` LIKE 'customer' group by date";
+                //thrid query
+                $querytable = "SELECT year(date) as date FROM `gdsales` group by year(date)";
                 $querytableresult = mysqli_query($con_zaheer,$querytable);
                 while($rowc=Mysqli_Fetch_Assoc($querytableresult)) {
                 
