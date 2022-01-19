@@ -220,8 +220,9 @@ include('slice/pur_order_code.php');
                 while($rowtable=Mysqli_Fetch_Assoc($querytableresult1)) {
                     
                     $year = $rowtable['date'];
-                //sixth query    
-                $queryamount = "SELECT sum(pay_amount) as amount FROM `tbl_payment` WHERE `pay_type` LIKE 'customer' and  `pay_acid` = $customer and year(pay_time) = $year and pay_acid != 1";
+           
+                    //sixth query    
+                $queryamount = "SELECT sum(amount) as amount FROM `gdsales` WHERE `cusid` = $customer and year(date) = $year";
                 $queryamountresult = mysqli_query($con_zaheer,$queryamount);
                 while($rowamount=Mysqli_Fetch_Assoc($queryamountresult)) {
                     
@@ -233,8 +234,8 @@ include('slice/pur_order_code.php');
                 <?php
                 }
                 }
-                
-                $querytotal = "SELECT sum(pay_amount) as amount FROM `tbl_payment`  WHERE `pay_type` LIKE 'customer' and  `pay_acid` = $customer and pay_acid != 1";
+                //seventh query
+                $querytotal = "SELECT sum(amount) as amount FROM `gdsales`  WHERE   `cusid` = $customer";
                 $querytotalresult = mysqli_query($con_zaheer,$querytotal);
                 while($rowtotal=Mysqli_Fetch_Assoc($querytotalresult)) {
                 
@@ -246,7 +247,8 @@ include('slice/pur_order_code.php');
                 <th><?php echo number_format($rowtotal['amount']) ?></th>
                 <th><?php 
                 
-                $querycurrent = "SELECT sum(pay_amount) as amount, year(pay_time) as date FROM `tbl_payment` WHERE `pay_type` LIKE 'customer' and  `pay_acid` = $customer and year(pay_time) = YEAR(CURDATE()) and pay_acid != 1";
+                //eight query
+                $querycurrent = "SELECT sum(amount) as amount, year(date) as date FROM `gdsales` WHERE `cusid` = $customer and year(date) = YEAR(CURDATE())";
                 $querycurrentresult = mysqli_query($con_zaheer,$querycurrent);
                 while($rowcurrent=Mysqli_Fetch_Assoc($querycurrentresult)) {
                 
