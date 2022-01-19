@@ -225,10 +225,8 @@ $no;
                 foreach($year as $yearget){
                     
                     //sixth query    
-              
-                    $queryamount = "SELECT sum(b.amount) as amount FROM `gdsales`as a inner join gd_sales_order as b on a.invoice_number = b.invoice WHERE a.cusid = $customer and year(b.saledate) = $yearget";
-               
-                    $queryamountresult = mysqli_query($con_zaheer,$queryamount);
+                $queryamount = "SELECT sum(amount) as amount FROM `gdsales` WHERE `cusid` = $customer and year(date) = $yearget";
+                $queryamountresult = mysqli_query($con_zaheer,$queryamount);
                 $rowamount=Mysqli_Fetch_Assoc($queryamountresult);
                 
                 ?>
@@ -299,13 +297,11 @@ $no;
                 
                 <?php
                 
-                $querytable11 = "SELECT year(pay_time) as date FROM `tbl_payment` WHERE `pay_type` LIKE 'customer' group by date";
-                $querytableresult11 = mysqli_query($con_zaheer,$querytable11);
-                while($rowtable1=Mysqli_Fetch_Assoc($querytableresult11)) {
+                foreach($year as $getyear2) {
                     
-                    $year1 = $rowtable1['date'];
+                    $year1 = $getyear2;
                     
-                $queryamount1 = "SELECT sum(pay_amount) as amount FROM `tbl_payment` WHERE `pay_type` LIKE 'customer' and year(pay_time) = $year1 and pay_acid != 1";
+                $queryamount1 = "SELECT sum(amount) as amount FROM `gdsales` WHERE  year(date) = $year1";
                 $queryamountresult1 = mysqli_query($con_zaheer,$queryamount1);
                 while($rowamount1=Mysqli_Fetch_Assoc($queryamountresult1)) {
                 
@@ -320,7 +316,7 @@ $no;
                 
                 <?php } }
                 
-                $queryamount11 = "SELECT sum(pay_amount) as amount FROM `tbl_payment` WHERE `pay_type` LIKE 'customer' and pay_acid != 1";
+                $queryamount11 = "SELECT sum(amount) as amount FROM `gdsales`";
                 $queryamountresult12 = mysqli_query($con_zaheer,$queryamount11);
                 while($rowamount11=Mysqli_Fetch_Assoc($queryamountresult12)) {
                 $all1 = $rowamount11['amount'];
@@ -330,7 +326,7 @@ $no;
                 <?php }?>
                 <td colspan="1"><strong style="font-size: 12px; color: #222222;"><?php 
                 
-                $querycurrent1 = "SELECT sum(pay_amount) as amount, year(pay_time) as date FROM `tbl_payment` WHERE `pay_type` LIKE 'customer' and  year(pay_time) = YEAR(CURDATE()) and pay_acid != 1";
+                $querycurrent1 = "SELECT sum(amount) as amount, year(pay_time) as date FROM `gdsales` WHERE  year(date) = YEAR(CURDATE())";
                 $querycurrentresult1 = mysqli_query($con_zaheer,$querycurrent1);
                 while($rowcurrent1=Mysqli_Fetch_Assoc($querycurrentresult1)) {
                 $currenttotal = $rowcurrent1['amount'];
@@ -348,7 +344,7 @@ $no;
 
             <?php
             $cond_user ="user_id=$userid";
-            $res_user =  sel_query_cond($con_zaheer,'users',$cond_user);
+            $res_user =  sel_query_cond($con_zaheer,users,$cond_user);
 
 
 
