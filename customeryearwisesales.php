@@ -247,7 +247,7 @@ include('slice/pur_order_code.php');
                 <th><?php echo number_format($rowtotal['amount']) ?></th>
                 <th><?php 
                 
-                //eight query
+                //eight query  finished
                 $querycurrent = "SELECT sum(amount) as amount, year(date) as date FROM `gdsales` WHERE `cusid` = $customer and year(date) = YEAR(CURDATE())";
                 $querycurrentresult = mysqli_query($con_zaheer,$querycurrent);
                 while($rowcurrent=Mysqli_Fetch_Assoc($querycurrentresult)) {
