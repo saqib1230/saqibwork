@@ -194,8 +194,8 @@ include('slice/pur_order_code.php');
        
            $sno=0;
             
-
-                $querycustomer = "SELECT a.pay_acid , b.cus_org ,sum(pay_amount) as amount FROM `tbl_payment`  as a inner join tbl_cusdetails as b on pay_acid = b.cus_id WHERE `pay_type` LIKE 'customer' and pay_acid != 1 group by pay_acid order by amount desc";
+                //fourth query
+                $querycustomer = "SELECT (a.cusid) as pay_acid , b.cus_org ,sum(a.amount) as amount FROM `gdsales` as a inner join tbl_cusdetails as b on a.cusid = b.cus_id group by a.cusid order by amount desc";
                 $querycustomerresult = mysqli_query($con_zaheer,$querycustomer);
                 while($rowcus=Mysqli_Fetch_Assoc($querycustomerresult)) {
                     $customer = $rowcus['pay_acid'];
