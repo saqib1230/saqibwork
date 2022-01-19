@@ -3,39 +3,18 @@ include('../customtitle.php');
 include('../customdb.php');
 error_reporting(0);
 $con_zaheer = mysqli_connect("localhost","zaheerautospindi_pn1","stkpindizaheer123++","zaheerautospindi_stkpindi");
-include '../dbc.php'; page_protect();
+include '../dbc.php'; 
+page_protect();
 
 mysqli_autocommit($con,FALSE);
-
-?>
-<form id="cusfrm" method="get" >
-
-
-
-
-</form>
-
-
-<?
 
 $dd1=date_create_from_format("Y-m-d",$dtt1);
 $dd2=date_create_from_format("Y-m-d",$dtt2);
 
-?>
-
-<?php
-
 $titles = 'Print  Purchase & Sales ';
 include('slice/pur_order_code.php');
 
-
-
-
-
-
 ?>
-
-
 <link href="css/style.css" media="screen" rel="stylesheet" type="text/css"/>
 <script src="js/jquery.js" type="text/javascript"></script>
 <style>
@@ -96,9 +75,7 @@ include('slice/pur_order_code.php');
 <body onload="stopback()">
 <a href="shipment_purchase.php" style="font-Meter:20px" ;>Back</a>|<a
 
-
-
-<div align="center">
+<div align ='center'>
 
     <a href="#" onclick="javascript:Clickheretoprint('content')">
         <button type="button" class="btn btn-warning">Print</button>
