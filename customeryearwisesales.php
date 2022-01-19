@@ -214,12 +214,13 @@ include('slice/pur_order_code.php');
                      
 
                 <?php
-                $querytable1 = "SELECT year(pay_time) as date FROM `tbl_payment` WHERE `pay_type` LIKE 'customer' and  `pay_type` LIKE 'customer' group by date";
+                //fifth query
+                $querytable1 = "SELECT year(date) as date FROM `gdsales`  group by year(date)";
                 $querytableresult1 = mysqli_query($con_zaheer,$querytable1);
                 while($rowtable=Mysqli_Fetch_Assoc($querytableresult1)) {
                     
-                    $year = $rowtable[date];
-                    
+                    $year = $rowtable['date'];
+                //sixth query    
                 $queryamount = "SELECT sum(pay_amount) as amount FROM `tbl_payment` WHERE `pay_type` LIKE 'customer' and  `pay_acid` = $customer and year(pay_time) = $year and pay_acid != 1";
                 $queryamountresult = mysqli_query($con_zaheer,$queryamount);
                 while($rowamount=Mysqli_Fetch_Assoc($queryamountresult)) {
