@@ -142,7 +142,15 @@ include('slice/pur_order_code.php');
                 <th>S.NO</th>
                 <th>customer</th>
                 <?php
-                $no;
+
+//zero query
+$querytable1 = "SELECT year(date) as date FROM `gdsales`  group by year(date)";
+                $querytableresult1 = mysqli_query($con_zaheer,$querytable1);
+                while($rowtable=Mysqli_Fetch_Assoc($querytableresult1)) {
+                    
+                    $year[] = $rowtable['date'];
+                }
+$no;
 
                 //first query 
                 $queryyearno = "SELECT year(date) as date FROM `gdsales` WHERE YEAR(date) != YEAR(CURDATE()) group by year(date)";
@@ -214,17 +222,12 @@ include('slice/pur_order_code.php');
                      
 
                 <?php
-                //fifth query
-                $querytable1 = "SELECT year(date) as date FROM `gdsales`  group by year(date)";
-                $querytableresult1 = mysqli_query($con_zaheer,$querytable1);
-                while($rowtable=Mysqli_Fetch_Assoc($querytableresult1)) {
-                    
-                    $year = $rowtable['date'];
-           
+                //fifth yearloop
+                foreach($year as $yearget){
                     //sixth query    
-                $queryamount = "SELECT sum(amount) as amount FROM `gdsales` WHERE `cusid` = $customer and year(date) = $year";
+                $queryamount = "SELECT sum(amount) as amount FROM `gdsales` WHERE `cusid` = $customer and year(date) = $yearget";
                 $queryamountresult = mysqli_query($con_zaheer,$queryamount);
-                while($rowamount=Mysqli_Fetch_Assoc($queryamountresult)) {
+                $rowamount=Mysqli_Fetch_Assoc($queryamountresult);
                     
                     
                 
@@ -233,10 +236,13 @@ include('slice/pur_order_code.php');
                 
                 <?php
                 }
-                }
+                
+
+                
                 //seventh query
                 $querytotal = "SELECT sum(amount) as amount FROM `gdsales`  WHERE   `cusid` = $customer";
                 $querytotalresult = mysqli_query($con_zaheer,$querytotal);
+            
                 while($rowtotal=Mysqli_Fetch_Assoc($querytotalresult)) {
                 
                 
@@ -363,7 +369,7 @@ include('slice/pur_order_code.php');
 
             <?php
             $cond_user ="user_id=$userid";
-            $res_user =  sel_query_cond($con_zaheer,users,$cond_user);
+            $res_user =  sel_query_cond($con_zaheer,'users',$cond_user);
 
 
 
